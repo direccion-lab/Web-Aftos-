@@ -303,9 +303,9 @@ export const TierButton = styled.button<{ $featured?: boolean }>`
   }
 `
 
-/* ---- Custom Amount Section ---- */
+/* ---- Tax Deduction Section ---- */
 
-export const CustomSection = styled.section`
+export const TaxSection = styled.section`
   width: 100%;
   max-width: 1200px;
   padding: 0 24px 80px;
@@ -317,7 +317,7 @@ export const CustomSection = styled.section`
   }
 `
 
-export const CustomCard = styled.div`
+export const TaxCard = styled.div`
   position: relative;
   background: linear-gradient(
     135deg,
@@ -328,9 +328,8 @@ export const CustomCard = styled.div`
   border-radius: 20px;
   padding: 48px 40px;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 40px;
+  flex-direction: column;
+  gap: 24px;
   overflow: hidden;
   box-shadow: 0 4px 40px ${({ theme }) => theme.colors.borderLight},
     inset 0 1px 0 ${({ theme }) => theme.colors.borderLight};
@@ -353,121 +352,129 @@ export const CustomCard = styled.div`
   }
 
   ${media.md} {
-    flex-direction: column;
-    text-align: center;
     padding: 36px 28px;
-    gap: 24px;
   }
 `
 
-export const CustomTextContent = styled.div`
+export const TaxHeader = styled.div`
   display: flex;
-  flex-direction: column;
-  gap: 8px;
-  flex: 1;
-  min-width: 0;
+  align-items: center;
+  gap: 16px;
 `
 
-export const CustomTitle = styled.h3`
+export const TaxIcon = styled.span`
+  font-size: 2rem;
+  line-height: 1;
+`
+
+export const TaxTitle = styled.h2`
   font-family: 'Rajdhani', 'Barlow Condensed', sans-serif;
   font-size: clamp(1.4rem, 3vw, 1.8rem);
   font-weight: 700;
   color: ${({ theme }) => theme.colors.textPrimary};
-  line-height: 1.2;
+  letter-spacing: 2px;
+  text-transform: uppercase;
   margin: 0;
 `
 
-export const CustomDescription = styled.p`
+export const TaxSubtitle = styled.p`
   font-family: 'Rajdhani', sans-serif;
   font-size: clamp(0.88rem, 1.5vw, 0.95rem);
   font-weight: 400;
   color: ${({ theme }) => theme.colors.textSecondary};
   line-height: 1.6;
   margin: 0;
-  max-width: 520px;
-
-  ${media.md} {
-    max-width: 100%;
-  }
 `
 
-export const CustomInputGroup = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-shrink: 0;
-
-  ${media.sm} {
-    flex-direction: column;
-    width: 100%;
-  }
+export const TaxHighlight = styled.div`
+  padding: 24px;
+  border-radius: 16px;
+  background: ${({ theme }) => theme.colors.accentMuted};
+  border: 1px solid ${({ theme }) => theme.colors.accent}33;
 `
 
-export const CurrencyLabel = styled.span`
+export const TaxHighlightTitle = styled.h4`
   font-family: 'Rajdhani', 'Barlow Condensed', sans-serif;
-  font-size: 1.6rem;
+  font-size: 1.1rem;
   font-weight: 700;
   color: ${({ theme }) => theme.colors.accent};
-`
-
-export const AmountInput = styled.input`
-  width: 120px;
-  padding: 12px 16px;
-  border-radius: 12px;
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  background: ${({ theme }) => theme.colors.divider};
-  color: ${({ theme }) => theme.colors.textPrimary};
-  font-family: 'Rajdhani', 'Barlow Condensed', sans-serif;
-  font-size: 1.2rem;
-  font-weight: 700;
-  text-align: center;
-  outline: none;
-  transition: all 0.3s ease;
-
-  &:focus {
-    border-color: ${({ theme }) => theme.colors.accent}66;
-    box-shadow: 0 0 0 3px ${({ theme }) => theme.colors.accentMuted};
-  }
-
-  &::placeholder {
-    color: ${({ theme }) => theme.colors.textMuted};
-  }
-
-  ${media.sm} {
-    width: 100%;
-  }
-`
-
-export const CustomButton = styled.button`
-  padding: 14px 32px;
-  border-radius: 12px;
-  border: none;
-  background: linear-gradient(
-    135deg,
-    ${({ theme }) => theme.colors.accent} 0%,
-    ${({ theme }) => theme.colors.accentSoft} 100%
-  );
-  color: ${({ theme }) => theme.colors.primary};
-  font-family: 'Rajdhani', 'Barlow Condensed', sans-serif;
-  font-size: 0.88rem;
-  font-weight: 700;
-  letter-spacing: 1.2px;
+  letter-spacing: 1px;
   text-transform: uppercase;
-  cursor: pointer;
+  margin: 0 0 8px;
+`
+
+export const TaxHighlightDesc = styled.p`
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 400;
+  color: ${({ theme }) => theme.colors.textPrimary};
+  line-height: 1.7;
+  margin: 0;
+`
+
+export const TaxColumns = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+
+  ${media.md} {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+`
+
+export const TaxColumn = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+`
+
+export const TaxColumnTitle = styled.h4`
+  font-family: 'Rajdhani', 'Barlow Condensed', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: ${({ theme }) => theme.colors.textPrimary};
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin: 0;
+  padding-bottom: 8px;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.borderLight};
+`
+
+export const TaxRow = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  background: ${({ theme }) => theme.colors.divider};
+  border: 1px solid ${({ theme }) => theme.colors.borderLight};
+
+  ${media.xs} {
+    flex-direction: column;
+    text-align: center;
+    gap: 4px;
+  }
+`
+
+export const TaxRowLabel = styled.span`
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: ${({ theme }) => theme.colors.textSecondary};
+`
+
+export const TaxRowValue = styled.span`
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: ${({ theme }) => theme.colors.textMuted};
   white-space: nowrap;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 20px ${({ theme }) => theme.colors.accentMuted};
 
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 30px ${({ theme }) => theme.colors.accentMuted};
-  }
-
-  &:active {
-    transform: translateY(0) scale(0.98);
-  }
-
-  ${media.sm} {
-    width: 100%;
+  strong {
+    color: ${({ theme }) => theme.colors.accent};
+    font-size: 1.1rem;
+    font-weight: 700;
   }
 `

@@ -1,4 +1,4 @@
-import { SponsorCard, type SponsorData, SponsorMarquee } from '@features/index'
+import { SponsorCard, type SponsorData } from '@features/index'
 import { Mail } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { CTABanner } from '@/components/CTABanner/CTABanner'
@@ -9,52 +9,10 @@ import * as S from './SponsorPage.styled'
 
 const SPONSORS: SponsorData[] = [
   {
-    id: 'nexus-tech',
-    name: 'Nexus Tech',
-    initials: 'NT',
-    websiteUrl: 'https://example.com',
-  },
-  {
-    id: 'pixel-forge',
-    name: 'Pixel Forge',
-    initials: 'PF',
-    websiteUrl: 'https://example.com',
-  },
-  {
-    id: 'aurora-games',
-    name: 'Aurora Games',
-    initials: 'AG',
-    websiteUrl: 'https://example.com',
-  },
-  {
-    id: 'vortex-labs',
-    name: 'Vortex Labs',
-    initials: 'VL',
-    websiteUrl: 'https://example.com',
-  },
-  {
-    id: 'quantum-play',
-    name: 'Quantum Play',
-    initials: 'QP',
-    websiteUrl: 'https://example.com',
-  },
-  {
-    id: 'cyber-core',
-    name: 'Cyber Core',
-    initials: 'CC',
-    websiteUrl: 'https://example.com',
-  },
-  {
-    id: 'nova-digital',
-    name: 'Nova Digital',
-    initials: 'ND',
-    websiteUrl: 'https://example.com',
-  },
-  {
-    id: 'titan-studio',
-    name: 'Titan Studio',
-    initials: 'TS',
-    websiteUrl: 'https://example.com',
+    id: 'fundacion-methos',
+    name: 'Fundación Methos',
+    initials: 'FM',
+    websiteUrl: 'https://fundacion-methos.es',
   },
 ]
 
@@ -75,10 +33,6 @@ export const SponsorPage = () => {
         titleKey={TRANSLATION.SPONSORS.PAGE_TITLE}
         subtitleKey={TRANSLATION.SPONSORS.SUBTITLE}
       />
-
-      <SponsorMarquee sponsors={SPONSORS} />
-
-      <S.SectionDivider />
 
       <S.GridSection>
         <S.GridHeader>
