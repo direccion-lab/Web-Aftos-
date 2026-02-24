@@ -1,17 +1,17 @@
 import { TeamCarousel, type TeamMember } from '@features/index'
+import artLeadImg from '@/assets/art_lead.png'
+import designImg from '@/assets/desing.png'
+import digitalArtistImg from '@/assets/digital_artist.png'
+
+import directorImg from '@/assets/director.png'
+import juniorArtistImg from '@/assets/junior_artist.png'
+import marketingImg from '@/assets/marketing.png'
+import producerImg from '@/assets/producer.png'
+import programmerImg from '@/assets/programmer.png'
+import rrhhImg from '@/assets/rrhh.png'
 import { HeroSection } from '@/components/HeroSection/HeroSection'
 import { TRANSLATION } from '@/i18n/translations/keys'
 import * as S from './TeamPage.styled'
-
-import directorImg from '@/assets/director.png'
-import producerImg from '@/assets/producer.png'
-import artLeadImg from '@/assets/art_lead.png'
-import digitalArtistImg from '@/assets/digital_artist.png'
-import juniorArtistImg from '@/assets/junior_artist.png'
-import programmerImg from '@/assets/programmer.png'
-import designImg from '@/assets/desing.png'
-import rrhhImg from '@/assets/rrhh.png'
-import marketingImg from '@/assets/marketing.png'
 
 const TEAM_MEMBERS: TeamMember[] = [
   {

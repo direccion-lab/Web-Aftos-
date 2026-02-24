@@ -1,4 +1,8 @@
-import { Github, Linkedin, Twitter } from 'lucide-react'
+import INSTRAGRAM from '@assets/instagram.png'
+import LINKEDIN from '@assets/linkedin.png'
+import STEAM from '@assets/steam.png'
+import TIKTOK from '@assets/tik-tok.png'
+import TWITTER from '@assets/x.png'
 import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { TRANSLATION } from '@/i18n/translations/keys'
@@ -37,14 +41,40 @@ export const Footer = () => {
             </S.Logo>
             <S.BrandDescription>{t(TRANSLATION.FOOTER.DESCRIPTION)}</S.BrandDescription>
             <S.SocialLinks>
-              <S.SocialLink href="https://twitter.com" target="_blank" rel="noopener noreferrer">
-                <Twitter size={16} />
+              <S.SocialLink
+                href="https://www.instagram.com/aftos_studio"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img src={INSTRAGRAM} alt="x" />
               </S.SocialLink>
-              <S.SocialLink href="https://github.com" target="_blank" rel="noopener noreferrer">
-                <Github size={16} />
+              <S.SocialLink
+                href="https://x.com/Aftos_Studio"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img src={TWITTER} alt="twitter" />
               </S.SocialLink>
-              <S.SocialLink href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
-                <Linkedin size={16} />
+              <S.SocialLink
+                href="https://www.tiktok.com/@aftos_studio"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img src={TIKTOK} alt="tiktok" />
+              </S.SocialLink>
+              <S.SocialLink
+                href="https://www.linkedin.com/company/aftos-studio/?originalSubdomain=es"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img src={LINKEDIN} alt="linkedin" />
+              </S.SocialLink>
+              <S.SocialLink
+                href="https://store.steampowered.com/app/4352080/Afesis_los_cuatro_peldaos/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img src={STEAM} alt="linkedin" />
               </S.SocialLink>
             </S.SocialLinks>
           </S.BrandColumn>

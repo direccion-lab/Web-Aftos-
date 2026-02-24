@@ -5,10 +5,12 @@ import { STORAGE_KEYS } from '@/constants/LocalStorage.constants'
 
 import en from './locales/en.json'
 import es from './locales/es.json'
+import ru from './locales/ru.json'
 
 const resources = {
   en: { translation: en },
   es: { translation: es },
+  ru: { translation: ru },
 }
 
 const savedLanguage = localStorage.getItem(STORAGE_KEYS.LANGUAGE) || 'es'

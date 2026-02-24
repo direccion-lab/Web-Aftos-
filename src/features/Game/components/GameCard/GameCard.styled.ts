@@ -13,7 +13,7 @@ export const Card = styled.article<{ $index: number }>`
 
 export const CoverWrapper = styled.div`
   position: relative;
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 16 / 9;
   border-radius: 14px;
   overflow: hidden;
   background: ${({ theme }) => theme.colors.surface};

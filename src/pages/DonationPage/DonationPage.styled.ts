@@ -123,42 +123,80 @@ export const TiersSection = styled.section`
   }
 `
 
-export const TiersGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+export const CarouselWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+`
 
-  ${media.lg} {
-    grid-template-columns: repeat(2, 1fr);
-  }
+export const CarouselViewport = styled.div`
+  width: 100%;
+  overflow: hidden;
+  padding: 20px 0 28px; /* espacio para el scale de la card activa */
+`
 
-  ${media.sm} {
-    grid-template-columns: 1fr;
-    gap: 16px;
+/*
+  El track posiciona todas las cards en fila.
+  Cada card ocupa 1/3 del viewport.
+  Para centrar la card activa: offset = activeIndex - 1
+  translateX mueve: -(offset * (100/3))%
+*/
+export const CarouselTrack = styled.div<{ $offset: number; $total: number }>`
+  display: flex;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateX(calc(-${({ $offset }) => $offset} * (100% / 3)));
+
+  ${media.md} {
+    transform: translateX(calc(-${({ $offset }) => $offset + 1} * 100%));
   }
 `
 
-export const TierCard = styled.div<{ $featured?: boolean }>`
+export const TierCard = styled.div<{
+  $featured?: boolean
+  $active?: boolean
+  $side?: boolean
+  $visible?: boolean
+}>`
   position: relative;
+  min-width: calc(100% / 3);
   background: linear-gradient(
     135deg,
     ${({ theme }) => theme.colors.surface} 0%,
     ${({ theme }) => theme.colors.primary} 100%
   );
-  border: 1px solid ${({ $featured, theme }) =>
-    $featured ? `${theme.colors.accent}44` : theme.colors.border};
+  border: 1px solid
+    ${({ $featured, $active, theme }) =>
+      $active
+        ? `${theme.colors.accent}88`
+        : $featured
+          ? `${theme.colors.accent}44`
+          : theme.colors.border};
   border-radius: 20px;
   padding: 36px 28px;
   display: flex;
   flex-direction: column;
   gap: 16px;
   overflow: hidden;
-  transition: all 0.3s ease;
+  cursor: ${({ $active }) => ($active ? 'default' : 'pointer')};
 
-  ${({ $featured, theme }) =>
-    $featured &&
+  /* transiciones suaves */
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+
+  /* card activa: resaltada y escalada */
+  opacity: ${({ $active, $side }) => ($active ? 1 : $side ? 0.5 : 0.15)};
+  transform: ${({ $active }) => ($active ? 'scale(1.04)' : 'scale(0.94)')};
+  pointer-events: ${({ $visible }) => ($visible ? 'auto' : 'none')};
+  z-index: ${({ $active }) => ($active ? 2 : 1)};
+
+  ${({ $active, theme }) =>
+    $active &&
     `
-    box-shadow: 0 0 40px ${theme.colors.accentMuted},
+    box-shadow: 0 0 60px ${theme.colors.accentMuted},
       inset 0 1px 0 ${theme.colors.accentMuted};
   `}
 
@@ -179,11 +217,63 @@ export const TierCard = styled.div<{ $featured?: boolean }>`
     pointer-events: none;
   }
 
+  /* en móvil ocupa el 100% */
+  ${media.md} {
+    min-width: 100%;
+    transform: ${({ $active }) => ($active ? 'scale(1)' : 'scale(0.96)')};
+  }
+`
+
+export const CarouselControls = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 20px;
+`
+
+export const CarouselButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  background: ${({ theme }) => theme.colors.surface};
+  color: ${({ theme }) => theme.colors.textSecondary};
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+
   &:hover {
-    transform: translateY(-4px);
     border-color: ${({ theme }) => theme.colors.accent}44;
-    box-shadow: 0 8px 40px ${({ theme }) => theme.colors.borderLight},
-      0 0 20px ${({ theme }) => theme.colors.accentMuted};
+    color: ${({ theme }) => theme.colors.accent};
+    background: ${({ theme }) => theme.colors.accentMuted};
+    transform: scale(1.05);
+  }
+
+  &:active {
+    transform: scale(0.96);
+  }
+`
+
+export const CarouselDots = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+`
+
+export const CarouselDot = styled.button<{ $active?: boolean }>`
+  width: ${({ $active }) => ($active ? '20px' : '6px')};
+  height: 6px;
+  border-radius: 3px;
+  border: none;
+  background: ${({ $active, theme }) => ($active ? theme.colors.accent : theme.colors.border)};
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+
+  &:hover {
+    background: ${({ theme }) => theme.colors.accent}88;
   }
 `
 
@@ -476,5 +566,51 @@ export const TaxRowValue = styled.span`
     color: ${({ theme }) => theme.colors.accent};
     font-size: 1.1rem;
     font-weight: 700;
+  }
+`
+
+export const DonateModalOverlay = styled.div`
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+`
+
+export const DonateModalBox = styled.div`
+  position: relative;
+  width: 100%;
+  max-width: 1000px;
+  height: 85vh;
+  border-radius: 20px;
+  overflow: hidden;
+  background: ${({ theme }) => theme.colors.surface};
+  border: 1px solid ${({ theme }) => theme.colors.border};
+`
+
+export const DonateModalClose = styled.button`
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 10;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  background: ${({ theme }) => theme.colors.surface};
+  color: ${({ theme }) => theme.colors.textPrimary};
+  cursor: pointer;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: ${({ theme }) => theme.colors.accentMuted};
+    color: ${({ theme }) => theme.colors.accent};
   }
 `

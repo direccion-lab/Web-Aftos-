@@ -1,19 +1,24 @@
+import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TRANSLATION } from '@/i18n/translations/keys'
 import * as S from './DonationPage.styled'
 
 const DONATION_BASE_URL = 'https://fundacion-methos.es/colabora-new/'
 
-const buildDonationUrl = (amount: string) => {
-  const params = new URLSearchParams({
-    amount,
-    proyecto: 'Aftos studio',
-  })
-  return `${DONATION_BASE_URL}?${params.toString()}`
-}
-
 export const DonationPage = () => {
   const { t } = useTranslation()
+  const [activeIndex, setActiveIndex] = useState(1)
+
+  const [donateUrl, setDonateUrl] = useState<string | null>(null)
+
+  const handleDonate = (price: string) => {
+    const params = new URLSearchParams({
+      'form_fields[cantidad1]': price,
+      'form_fields[proyecto]': 'aftos_studio',
+    })
+    setDonateUrl(`${DONATION_BASE_URL}?${params.toString()}`)
+  }
 
   const tiers = [
     {
@@ -98,9 +103,12 @@ export const DonationPage = () => {
     },
   ]
 
-  const handleDonate = (price: string) => {
-    window.open(buildDonationUrl(price), '_blank', 'noopener,noreferrer')
-  }
+  const handlePrev = () => setActiveIndex((prev) => (prev === 0 ? tiers.length - 1 : prev - 1))
+
+  const handleNext = () => setActiveIndex((prev) => (prev === tiers.length - 1 ? 0 : prev + 1))
+
+  // índice del primer visible: activo - 1 (la card activa siempre en el centro)
+  const trackOffset = activeIndex - 1
 
   return (
     <S.PageWrapper>
@@ -116,27 +124,78 @@ export const DonationPage = () => {
       </S.HeroArea>
 
       <S.TiersSection>
-        <S.TiersGrid>
-          {tiers.map((tier) => (
-            <S.TierCard key={tier.price} $featured={tier.featured}>
-              {tier.badgeKey && <S.TierBadge>{t(tier.badgeKey)}</S.TierBadge>}
-              <S.TierIcon>{tier.icon}</S.TierIcon>
-              <S.TierName>{t(tier.nameKey)}</S.TierName>
-              <S.TierPrice>
-                €{tier.price} <span>/ {t(TRANSLATION.DONATIONS.ONE_TIME)}</span>
-              </S.TierPrice>
-              <S.TierDescription>{t(tier.descriptionKey)}</S.TierDescription>
-              <S.TierPerks>
-                {tier.perks.map((perkKey) => (
-                  <S.Perk key={perkKey}>{t(perkKey)}</S.Perk>
-                ))}
-              </S.TierPerks>
-              <S.TierButton $featured={tier.featured} onClick={() => handleDonate(tier.price)}>
-                {t(TRANSLATION.DONATIONS.DONATE_CTA)}
-              </S.TierButton>
-            </S.TierCard>
-          ))}
-        </S.TiersGrid>
+        <S.CarouselWrapper>
+          <S.CarouselViewport>
+            <S.CarouselTrack $offset={trackOffset} $total={tiers.length}>
+              {tiers.map((tier, index) => {
+                const distance = index - activeIndex
+                // wrap-around: si está a más de la mitad de distancia, ajusta
+                const wrappedDistance =
+                  distance > tiers.length / 2
+                    ? distance - tiers.length
+                    : distance < -tiers.length / 2
+                      ? distance + tiers.length
+                      : distance
+                const isActive = wrappedDistance === 0
+                const isSide = Math.abs(wrappedDistance) === 1
+                const isVisible = Math.abs(wrappedDistance) <= 1
+
+                return (
+                  <S.TierCard
+                    key={tier.price}
+                    $featured={tier.featured}
+                    $active={isActive}
+                    $side={isSide}
+                    $visible={isVisible}
+                    onClick={() => !isActive && setActiveIndex(index)}
+                  >
+                    {tier.badgeKey && <S.TierBadge>{t(tier.badgeKey)}</S.TierBadge>}
+                    <S.TierIcon>{tier.icon}</S.TierIcon>
+                    <S.TierName>{t(tier.nameKey)}</S.TierName>
+                    <S.TierPrice>
+                      €{tier.price} <span>/ {t(TRANSLATION.DONATIONS.ONE_TIME)}</span>
+                    </S.TierPrice>
+                    <S.TierDescription>{t(tier.descriptionKey)}</S.TierDescription>
+                    <S.TierPerks>
+                      {tier.perks.map((perkKey) => (
+                        <S.Perk key={perkKey}>{t(perkKey)}</S.Perk>
+                      ))}
+                    </S.TierPerks>
+                    <S.TierButton
+                      $featured={tier.featured}
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        handleDonate(tier.price)
+                      }}
+                    >
+                      {t(TRANSLATION.DONATIONS.DONATE_CTA)}
+                    </S.TierButton>
+                  </S.TierCard>
+                )
+              })}
+            </S.CarouselTrack>
+          </S.CarouselViewport>
+
+          <S.CarouselControls>
+            <S.CarouselButton onClick={handlePrev} aria-label="Previous">
+              <ChevronLeft size={20} />
+            </S.CarouselButton>
+
+            <S.CarouselDots>
+              {tiers.map((tier, index) => (
+                <S.CarouselDot
+                  key={tier.price}
+                  $active={index === activeIndex}
+                  onClick={() => setActiveIndex(index)}
+                />
+              ))}
+            </S.CarouselDots>
+
+            <S.CarouselButton onClick={handleNext} aria-label="Next">
+              <ChevronRight size={20} />
+            </S.CarouselButton>
+          </S.CarouselControls>
+        </S.CarouselWrapper>
       </S.TiersSection>
 
       <S.TaxSection>
@@ -191,6 +250,20 @@ export const DonationPage = () => {
               </S.TaxRow>
             </S.TaxColumn>
           </S.TaxColumns>
+          {donateUrl && (
+            <S.DonateModalOverlay onClick={() => setDonateUrl(null)}>
+              <S.DonateModalBox onClick={(e) => e.stopPropagation()}>
+                <S.DonateModalClose onClick={() => setDonateUrl(null)}>✕</S.DonateModalClose>
+                <iframe
+                  src={donateUrl}
+                  width="100%"
+                  height="100%"
+                  frameBorder="0"
+                  title="Formulario de donación"
+                />
+              </S.DonateModalBox>
+            </S.DonateModalOverlay>
+          )}
         </S.TaxCard>
       </S.TaxSection>
     </S.PageWrapper>

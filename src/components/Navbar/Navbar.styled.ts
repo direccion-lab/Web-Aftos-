@@ -67,25 +67,33 @@ export const NavSpacer = styled.div`
 
 export const Logo = styled.div`
   font-family: 'Rajdhani', 'Barlow Condensed', sans-serif;
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: ${({ theme }) => theme.colors.textPrimary};
-  letter-spacing: 2px;
   cursor: pointer;
-  text-transform: uppercase;
   user-select: none;
+  display: flex;
+  flex-direction: row;
+  line-height: 1;
   transition: all 0.3s ease;
+  gap: 0.5rem;
 
   &:hover {
     opacity: 0.8;
-    letter-spacing: 3px;
   }
 `
 
-export const LogoAccent = styled.span`
-  color: ${({ theme }) => theme.colors.accent};
+export const LogoMain = styled.span`
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: ${({ theme }) => theme.colors.textPrimary};
+  text-transform: uppercase;
+`
+
+export const LogoSub = styled.span`
+  font-size: 0.6rem;
   font-weight: 400;
-  margin-left: 4px;
+  letter-spacing: 6px;
+  color: ${({ theme }) => theme.colors.accent};
+  text-transform: uppercase;
 `
 
 export const NavLinks = styled.div`

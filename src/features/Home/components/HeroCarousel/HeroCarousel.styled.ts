@@ -62,6 +62,38 @@ export const SlideImage = styled.div<{ $src: string; $active: boolean }>`
   }
 `
 
+export const SlideVideo = styled.video<{ $active: boolean }>`
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+`
+
+export const SlideVideoOverlay = styled.div`
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    to right,
+    rgba(21, 26, 46, 0.88) 0%,
+    rgba(21, 26, 46, 0.55) 40%,
+    rgba(21, 26, 46, 0.15) 65%,
+    transparent 100%
+  );
+
+  @media (max-width: 768px) {
+    background: linear-gradient(
+      to top,
+      rgba(21, 26, 46, 0.95) 0%,
+      rgba(21, 26, 46, 0.6) 50%,
+      rgba(21, 26, 46, 0.3) 100%
+    );
+  }
+`
+
 export const BottomVignette = styled.div`
   position: absolute;
   bottom: 0;
@@ -134,6 +166,67 @@ export const SlideDescription = styled.p<{ $active: boolean }>`
   opacity: ${({ $active }) => ($active ? 0.85 : 0)};
   transform: ${({ $active }) => ($active ? 'translateY(0)' : 'translateY(20px)')};
   transition: opacity 0.6s ease 0.4s, transform 0.6s ease 0.4s;
+`
+
+export const ActionLinksRow = styled.div<{ $active: boolean }>`
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+  opacity: ${({ $active }) => ($active ? 1 : 0)};
+  transform: ${({ $active }) => ($active ? 'translateY(0)' : 'translateY(20px)')};
+  transition: opacity 0.6s ease 0.5s, transform 0.6s ease 0.5s;
+
+  @media (max-width: 768px) {
+    margin-top: 16px;
+  }
+`
+
+export const ActionLink = styled.a`
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 24px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(21, 26, 46, 0.5);
+  backdrop-filter: blur(12px);
+  color: #fff;
+  font-family: 'Rajdhani', 'Barlow Condensed', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+  }
+
+  &:hover {
+    background: rgba(21, 26, 46, 0.7);
+    border-color: ${({ theme }) => theme.colors.accent}66;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3),
+      0 0 20px ${({ theme }) => theme.colors.accentMuted};
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    transform: translateY(0) scale(0.97);
+  }
+
+  @media (max-width: 768px) {
+    padding: 10px 18px;
+    font-size: 0.8rem;
+
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
 `
 
 export const ArrowButton = styled.button<{ $side: 'left' | 'right' }>`

@@ -4,7 +4,6 @@ import styled from 'styled-components'
 
 export const PageWrapper = styled.main`
   width: 100%;
-  min-height: 100vh;
   background: ${({ theme }) => theme.colors.primary};
   padding: 40px 24px 80px;
 
@@ -80,11 +79,12 @@ export const FilterButton = styled.button<{ $active: boolean }>`
 
 export const GamesGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  grid-template-columns: 1fr;
   gap: 28px;
+  max-width: 720px;
 
   @media (max-width: 540px) {
-    grid-template-columns: repeat(2, 1fr);
+    max-width: 100%;
     gap: 16px;
   }
 `

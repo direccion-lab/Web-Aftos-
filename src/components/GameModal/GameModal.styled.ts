@@ -19,8 +19,6 @@ export const Overlay = styled.div<{ $visible: boolean }>`
 
 export const Modal = styled.div<{ $visible: boolean }>`
   position: relative;
-  width: 100%;
-  max-width: 800px;
   max-height: 85vh;
   background: ${({ theme }) => theme.colors.primary};
   border: 1px solid ${({ theme }) => theme.colors.border};

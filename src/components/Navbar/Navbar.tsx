@@ -1,3 +1,4 @@
+import ISOTIPO from '@assets/isotipo.png'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate } from 'react-router-dom'
@@ -10,9 +11,21 @@ type NavItem =
   | { type: 'route'; labelKey: string; path: string }
 
 const NAV_ITEMS: NavItem[] = [
-  { type: 'section', labelKey: TRANSLATION.NAV.GAMES, sectionId: SECTION_IDS.GAMES },
-  { type: 'section', labelKey: TRANSLATION.NAV.ABOUT, sectionId: SECTION_IDS.ABOUT },
-  { type: 'section', labelKey: TRANSLATION.NAV.CONTACT, sectionId: SECTION_IDS.CONTACT },
+  {
+    type: 'section',
+    labelKey: TRANSLATION.NAV.GAMES,
+    sectionId: SECTION_IDS.GAMES,
+  },
+  {
+    type: 'section',
+    labelKey: TRANSLATION.NAV.ABOUT,
+    sectionId: SECTION_IDS.ABOUT,
+  },
+  {
+    type: 'section',
+    labelKey: TRANSLATION.NAV.CONTACT,
+    sectionId: SECTION_IDS.CONTACT,
+  },
   { type: 'route', labelKey: TRANSLATION.NAV.STORE, path: ROUTES.STORE },
 ]
 
@@ -39,8 +52,8 @@ export const Navbar = ({ theme, onToggleTheme }: NavbarProps) => {
   const isHome = pathname === '/' || pathname === ROUTES.HOME
 
   const toggleLang = () => {
-    const next = currentLang === 'es' ? 'en' : 'es'
-    i18n.changeLanguage(next)
+    const cycle: Record<string, string> = { es: 'en', en: 'ru', ru: 'es' }
+    i18n.changeLanguage(cycle[currentLang] ?? 'es')
   }
 
   const handleNavClick = (item: NavItem) => {
@@ -71,7 +84,13 @@ export const Navbar = ({ theme, onToggleTheme }: NavbarProps) => {
 
           <S.NavInner>
             <S.Logo onClick={() => navigate(ROUTES.HOME)}>
-              AFTOS<S.LogoAccent>STUDIO</S.LogoAccent>
+              <div>
+                <img src={ISOTIPO} alt="" width={35} height={35} />
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column' }}>
+                <S.LogoMain>AFTOS</S.LogoMain>
+                <S.LogoSub>STUDIO</S.LogoSub>
+              </div>
             </S.Logo>
 
             <S.NavLinks>
@@ -88,7 +107,9 @@ export const Navbar = ({ theme, onToggleTheme }: NavbarProps) => {
 
             <S.RightSection>
               <S.LangButton onClick={toggleLang}>
-                <S.LangFlag>{currentLang === 'es' ? '🇪🇸' : '🇬🇧'}</S.LangFlag>
+                <S.LangFlag>
+                  {currentLang === 'es' ? '🇪🇸' : currentLang === 'en' ? '🇬🇧' : '🇷🇺'}
+                </S.LangFlag>
                 <S.LangCode>{currentLang.toUpperCase()}</S.LangCode>
               </S.LangButton>
 
@@ -140,6 +161,12 @@ export const Navbar = ({ theme, onToggleTheme }: NavbarProps) => {
                 onClick={() => i18n.changeLanguage('en')}
               >
                 🇬🇧 EN
+              </S.MobileLangButton>
+              <S.MobileLangButton
+                $active={currentLang === 'ru'}
+                onClick={() => i18n.changeLanguage('ru')}
+              >
+                🇷🇺 RU
               </S.MobileLangButton>
             </S.MobileLangRow>
 

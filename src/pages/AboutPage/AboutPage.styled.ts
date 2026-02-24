@@ -1,3 +1,4 @@
+import BANNER from '@assets/Banner_team.png'
 import { fadeInUp, pulse } from '@theme/animations'
 import { BREAKPOINTS, media } from '@theme/breakpoints'
 import styled from 'styled-components'
@@ -8,7 +9,6 @@ export const PageWrapper = styled.main`
   background: ${({ theme }) => theme.colors.primary};
   display: flex;
   flex-direction: column;
-  gap: 60px;
   padding-bottom: 80px;
 
   ${media.minMd} {
@@ -74,11 +74,11 @@ export const BlockTitle = styled.h3`
 export const BlockDescription = styled.p`
   font-family: 'Rajdhani', sans-serif;
   font-size: clamp(0.9rem, 1.5vw, 1.05rem);
+  text-align: justify;
   font-weight: 400;
   color: ${({ theme }) => theme.colors.textSecondary};
   line-height: 1.7;
   margin: 0;
-  max-width: 720px;
 `
 
 export const Divider = styled.div`
@@ -145,4 +145,14 @@ export const ValueDescription = styled.p`
   color: ${({ theme }) => theme.colors.textMuted};
   line-height: 1.6;
   margin: 0;
+`
+
+export const Image = styled.div`
+    background-image: url(${BANNER});
+    border-radius: 16px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 400px;
 `

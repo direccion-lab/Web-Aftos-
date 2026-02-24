@@ -1,6 +1,6 @@
-import { useEffect, useCallback } from 'react'
-import { useTranslation } from 'react-i18next'
 import { X } from 'lucide-react'
+import { useCallback, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import { TRANSLATION } from '@/i18n/translations/keys'
 import * as S from './GameModal.styled'
 

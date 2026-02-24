@@ -58,6 +58,7 @@ export const AboutPage = () => {
             </S.ValueCard>
           </S.ValuesGrid>
         </S.Block>
+        <S.Image />
       </S.ContentSection>
     </S.PageWrapper>
   )

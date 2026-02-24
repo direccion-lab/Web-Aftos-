@@ -91,4 +91,5 @@ export const Subtitle = styled.p`
   z-index: 1;
   animation: ${fadeInUp} 0.5s ease backwards;
   animation-delay: 0.3s;
+  margin: 3rem 0rem;
 `

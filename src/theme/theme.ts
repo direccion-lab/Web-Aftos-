@@ -31,31 +31,31 @@ export const darkTheme = {
 
 export const lightTheme = {
   colors: {
-    primary: '#8490B5',
-    secondary: '#B7C2DA',
-    tertiary: '#E1ECF6',
-    background: '#FBFAF9',
-    accent: '#FFECA1',
+    primary: '#D5E1F2',
+    secondary: '#E0EAF5',
+    tertiary: '#B8CFEA',
+    background: '#EBF1F8',
+    accent: '#B8860B',
 
     surface: '#FFFFFF',
-    surfaceHover: '#F3F0EC',
-    overlay: 'rgba(251, 250, 249, 0.7)',
+    surfaceHover: '#EDF3FA',
+    overlay: 'rgba(213, 225, 242, 0.85)',
 
-    textPrimary: '#1E2438',
-    textSecondary: '#5E6A88',
-    textMuted: '#A0A8BF',
+    textPrimary: '#1A1F35',
+    textSecondary: '#3D4663',
+    textMuted: '#6B7794',
 
-    accentHover: '#FFF0B8',
-    accentMuted: 'rgba(255, 236, 161, 0.25)',
-    accentSoft: '#E8D06E',
+    accentHover: '#D4A017',
+    accentMuted: 'rgba(184, 134, 11, 0.12)',
+    accentSoft: '#9A7209',
 
-    info: '#4A85D8',
-    success: '#36B37E',
-    warning: '#F5A623',
-    error: '#E5574F',
+    info: '#2E6CC4',
+    success: '#258A5A',
+    warning: '#C47A0A',
+    error: '#C73B3B',
 
-    border: 'rgba(132, 144, 181, 0.2)',
-    borderLight: 'rgba(183, 194, 218, 0.18)',
-    divider: 'rgba(132, 144, 181, 0.1)',
+    border: 'rgba(26, 31, 53, 0.18)',
+    borderLight: 'rgba(26, 31, 53, 0.10)',
+    divider: 'rgba(26, 31, 53, 0.07)',
   },
 }

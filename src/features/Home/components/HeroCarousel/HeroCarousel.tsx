@@ -1,13 +1,22 @@
+import type { ReactNode } from 'react'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import * as S from './HeroCarousel.styled'
 
+export interface HeroSlideAction {
+  icon: ReactNode
+  label: string
+  url: string
+}
+
 export interface HeroSlide {
   id: string
   backgroundImage: string
+  backgroundVideo?: string
   logoImage?: string
   titleKey: string
   descriptionKey: string
+  actionLinks?: HeroSlideAction[]
 }
 
 interface HeroCarouselProps {
@@ -75,6 +84,20 @@ export const HeroCarousel = ({ slides, autoAdvanceMs = 7000 }: HeroCarouselProps
             <S.Slide key={slide.id} $active={isActive} $direction={direction}>
               <S.SlideImage $src={slide.backgroundImage} $active={isActive} />
 
+              {slide.backgroundVideo && (
+                <>
+                  <S.SlideVideo
+                    src={slide.backgroundVideo}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    $active={isActive}
+                  />
+                  <S.SlideVideoOverlay />
+                </>
+              )}
+
               <S.SlideContent $active={isActive}>
                 {slide.logoImage && (
                   <S.GameLogo src={slide.logoImage} alt="" $active={isActive} draggable={false} />
@@ -83,6 +106,22 @@ export const HeroCarousel = ({ slides, autoAdvanceMs = 7000 }: HeroCarouselProps
                 <S.SlideDescription $active={isActive}>
                   {t(slide.descriptionKey)}
                 </S.SlideDescription>
+
+                {slide.actionLinks && slide.actionLinks.length > 0 && (
+                  <S.ActionLinksRow $active={isActive}>
+                    {slide.actionLinks.map((action) => (
+                      <S.ActionLink
+                        key={action.url}
+                        href={action.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {action.icon}
+                        <span>{action.label}</span>
+                      </S.ActionLink>
+                    ))}
+                  </S.ActionLinksRow>
+                )}
               </S.SlideContent>
             </S.Slide>
           )

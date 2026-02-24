@@ -7,7 +7,7 @@ export const BannerWrapper = styled.section`
   padding: 0 24px;
   display: flex;
   justify-content: center;
-
+  margin-top: 2rem;
   ${media.minMd} {
     padding: 0 40px;
   }
