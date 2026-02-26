@@ -105,7 +105,6 @@ export const TeamPage = () => {
         titleKey={TRANSLATION.TEAM.PAGE_TITLE}
         subtitleKey={TRANSLATION.TEAM.SUBTITLE}
       />
-
       <S.CarouselContainer>
         <TeamCarousel
           members={TEAM_MEMBERS}

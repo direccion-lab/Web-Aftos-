@@ -39,7 +39,6 @@ const CARD_GAP_MOBILE = 12
 
 export const TeamCarousel = ({ members, titleKey, eyebrowKey }: TeamCarouselProps) => {
   const { t } = useTranslation()
-  const [currentIndex, setCurrentIndex] = useState(0)
   const [visibleCards, setVisibleCards] = useState(4)
   const trackRef = useRef<HTMLDivElement>(null)
 
@@ -64,33 +63,33 @@ export const TeamCarousel = ({ members, titleKey, eyebrowKey }: TeamCarouselProp
     return () => window.removeEventListener('resize', updateVisibleCards)
   }, [updateVisibleCards])
 
-  const maxIndex = Math.max(0, members.length - visibleCards)
+  const [currentPage, setCurrentPage] = useState(0)
+
   const totalPages = Math.ceil(members.length / visibleCards)
-
-  const canPrev = currentIndex > 0
-  const canNext = currentIndex < maxIndex
-
-  const prev = useCallback(() => {
-    if (canPrev) setCurrentIndex((i) => Math.max(0, i - visibleCards))
-  }, [canPrev, visibleCards])
-
-  const next = useCallback(() => {
-    if (canNext) setCurrentIndex((i) => Math.min(maxIndex, i + visibleCards))
-  }, [canNext, maxIndex, visibleCards])
+  const canPrev = currentPage > 0
+  const canNext = currentPage < totalPages - 1
 
   const goToPage = useCallback(
     (page: number) => {
-      setCurrentIndex(Math.min(page * visibleCards, maxIndex))
+      setCurrentPage(Math.max(0, Math.min(page, totalPages - 1)))
     },
-    [visibleCards, maxIndex]
+    [totalPages]
   )
+
+  const prev = useCallback(() => {
+    if (canPrev) setCurrentPage((p) => p - 1)
+  }, [canPrev])
+
+  const next = useCallback(() => {
+    if (canNext) setCurrentPage((p) => p + 1)
+  }, [canNext])
 
   const offset = useMemo(() => {
     const { cardW, gap } = getCardDimensions()
-    return -(currentIndex * (cardW + gap))
-  }, [currentIndex, getCardDimensions])
-
-  const currentPage = Math.floor(currentIndex / visibleCards)
+    const index = currentPage * visibleCards
+    const maxIndex = Math.max(0, members.length - visibleCards)
+    return -(Math.min(index, maxIndex) * (cardW + gap))
+  }, [currentPage, visibleCards, members.length, getCardDimensions])
 
   return (
     <S.CarouselSection>

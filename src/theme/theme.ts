@@ -10,9 +10,9 @@ export const darkTheme = {
     surfaceHover: '#232A4A',
     overlay: 'rgba(21, 26, 46, 0.7)',
 
-    textPrimary: '#E2E8F4',
-    textSecondary: '#8A94B2',
-    textMuted: '#4E5A78',
+    textPrimary: '#fff',
+    textSecondary: '#C0D5ED',
+    textMuted: '#C0D5ED',
 
     accentHover: '#FFE17A',
     accentMuted: 'rgba(255, 215, 88, 0.15)',

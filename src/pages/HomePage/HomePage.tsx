@@ -77,7 +77,7 @@ export const HomePage = () => {
   return (
     <S.PageWrapper>
       <div>
-        <HeroCarousel slides={slides} autoAdvanceMs={30000} />
+        <HeroCarousel slides={slides} autoAdvanceMs={20000} />
       </div>
       <div>
         <DonationBanner />
