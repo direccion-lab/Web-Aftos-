@@ -10,19 +10,6 @@ export const PageWrapper = styled.main`
   flex-direction: column;
 `
 
-export const SectionDivider = styled.div`
-  width: 60px;
-  height: 2px;
-  margin: 0 auto;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    ${({ theme }) => theme.colors.accent},
-    transparent
-  );
-  opacity: 0.5;
-`
-
 export const GridSection = styled.section`
   width: 100%;
   padding: 48px 24px 60px;
@@ -36,7 +23,10 @@ export const GridSection = styled.section`
 
 export const GridHeader = styled.div`
   max-width: ${BREAKPOINTS.xl}px;
-  margin: 0 auto 40px;
+  margin: 0 auto 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 `
 
 export const GridTitle = styled.h2`
@@ -47,32 +37,64 @@ export const GridTitle = styled.h2`
   letter-spacing: 2px;
   text-transform: uppercase;
   margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  &::before {
+    content: '';
+    width: 3px;
+    height: 22px;
+    border-radius: 2px;
+    background: ${({ theme }) => theme.colors.accent};
+    box-shadow: 0 0 8px ${({ theme }) => theme.colors.accent};
+    flex-shrink: 0;
+  }
+`
+
+export const GridSubtitle = styled.p`
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.9rem;
+  color: ${({ theme }) => theme.colors.textSecondary};
+  margin: 0 0 0 15px;
+  letter-spacing: 0.5px;
 `
 
 export const SponsorGrid = styled.div`
   max-width: ${BREAKPOINTS.xl}px;
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 20px;
 
-  ${media.lg} {
-    grid-template-columns: repeat(3, 1fr);
+  & > * {
+    flex: 1 1 220px;
+    max-width: 280px;
   }
 
   ${media.md} {
-    grid-template-columns: repeat(2, 1fr);
     gap: 16px;
+
+    & > * {
+      flex: 1 1 160px;
+      max-width: 220px;
+    }
   }
 
   ${media.xs} {
-    grid-template-columns: repeat(2, 1fr);
     gap: 12px;
+
+    & > * {
+      flex: 1 1 140px;
+      max-width: 180px;
+    }
   }
 `
 
 export const CTAWrapper = styled.div`
   padding-bottom: 80px;
+  margin-top: auto;
 
   ${media.minMd} {
     padding-bottom: 100px;

@@ -8,11 +8,10 @@ export const Card = styled.a<{ $index: number }>`
   align-items: center;
   justify-content: center;
   gap: 16px;
-  padding: 32px 24px;
-  border-radius: 16px;
+  padding: 36px 24px 28px;
+  border-radius: 18px;
   background: ${({ theme }) => theme.colors.surface};
   border: 1px solid ${({ theme }) => theme.colors.borderLight};
-  backdrop-filter: blur(12px);
   cursor: pointer;
   text-decoration: none;
   transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
@@ -20,15 +19,34 @@ export const Card = styled.a<{ $index: number }>`
   animation-delay: ${({ $index }) => $index * 0.07}s;
   overflow: hidden;
 
+  /* glow superior al hover */
   &::before {
     content: '';
     position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      ${({ theme }) => theme.colors.accent},
+      transparent
+    );
+    opacity: 0;
+    transition: opacity 0.35s ease;
+  }
+
+  /* radial glow fondo */
+  &::after {
+    content: '';
+    position: absolute;
     inset: 0;
-    border-radius: 16px;
+    border-radius: 18px;
     background: radial-gradient(
       circle at 50% 0%,
-      ${({ theme }) => theme.colors.accentMuted} 0%,
-      transparent 70%
+      ${({ theme }) => theme.colors.accent}18 0%,
+      transparent 65%
     );
     opacity: 0;
     transition: opacity 0.35s ease;
@@ -36,14 +54,14 @@ export const Card = styled.a<{ $index: number }>`
   }
 
   &:hover {
-    transform: translateY(-6px);
-    border-color: ${({ theme }) => theme.colors.accent}44;
-    box-shadow: 0 12px 40px ${({ theme }) => theme.colors.borderLight},
+    transform: translateY(-8px);
+    border-color: ${({ theme }) => theme.colors.accent}55;
+    box-shadow:
+      0 16px 48px rgba(0, 0, 0, 0.3),
       0 0 30px ${({ theme }) => theme.colors.accentMuted};
 
-    &::before {
-      opacity: 1;
-    }
+    &::before { opacity: 1; }
+    &::after  { opacity: 1; }
   }
 
   &:active {
@@ -51,10 +69,32 @@ export const Card = styled.a<{ $index: number }>`
   }
 `
 
+export const TierBadge = styled.span`
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: ${({ theme }) => theme.colors.accent};
+  background: ${({ theme }) => theme.colors.accent}18;
+  border: 1px solid ${({ theme }) => theme.colors.accent}33;
+  padding: 2px 8px;
+  border-radius: 4px;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+
+  ${Card}:hover & {
+    opacity: 1;
+  }
+`
+
 export const LogoWrapper = styled.div`
-  width: 72px;
-  height: 72px;
-  border-radius: 16px;
+  width: 80px;
+  height: 80px;
+  border-radius: 18px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -69,15 +109,17 @@ export const LogoWrapper = styled.div`
   transition: all 0.35s ease;
 
   ${Card}:hover & {
-    border-color: ${({ theme }) => theme.colors.accentMuted};
-    box-shadow: 0 0 20px ${({ theme }) => theme.colors.accentMuted};
-    transform: scale(1.05);
+    border-color: ${({ theme }) => theme.colors.accent}55;
+    box-shadow:
+      0 0 0 4px ${({ theme }) => theme.colors.accent}11,
+      0 0 20px ${({ theme }) => theme.colors.accentMuted};
+    transform: scale(1.08);
   }
 `
 
 export const LogoInitials = styled.span`
   font-family: 'Rajdhani', 'Barlow Condensed', sans-serif;
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   font-weight: 700;
   color: ${({ theme }) => theme.colors.accent};
   letter-spacing: 2px;
@@ -87,18 +129,19 @@ export const LogoInitials = styled.span`
 
 export const SponsorName = styled.span`
   font-family: 'Rajdhani', 'Barlow Condensed', sans-serif;
-  font-size: 0.88rem;
+  font-size: 0.85rem;
   font-weight: 600;
-  color: ${({ theme }) => theme.colors.textPrimary};
+  color: ${({ theme }) => theme.colors.textSecondary};
   letter-spacing: 1px;
   text-transform: uppercase;
   text-align: center;
   position: relative;
   z-index: 1;
   transition: color 0.25s ease;
+  line-height: 1.3;
 
   ${Card}:hover & {
-    color: ${({ theme }) => theme.colors.accent};
+    color: ${({ theme }) => theme.colors.textPrimary};
   }
 `
 
@@ -107,15 +150,13 @@ export const ExternalIcon = styled.span`
   top: 12px;
   right: 12px;
   opacity: 0;
-  transform: translate(-4px, 4px);
+  transform: translate(-3px, 3px);
   transition: all 0.25s ease;
-  color: ${({ theme }) => theme.colors.textMuted};
-  font-size: 0.75rem;
+  color: ${({ theme }) => theme.colors.accent};
   z-index: 1;
 
   ${Card}:hover & {
     opacity: 1;
     transform: translate(0, 0);
-    color: ${({ theme }) => theme.colors.accent};
   }
 `
