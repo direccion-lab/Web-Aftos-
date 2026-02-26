@@ -31,7 +31,7 @@ export const HomePage = () => {
   const slides: HeroSlide[] = [
     {
       id: 'afesis',
-      backgroundImage: '/images/hero/game-1-bg.jpg',
+      backgroundImage: '/images/hero/studio-bg.jpg',
       backgroundVideo: trailerVideo,
       logoImage: '/images/hero/game-1-logo.png',
       titleKey: TRANSLATION.HOME.SLIDE_1_TITLE,
