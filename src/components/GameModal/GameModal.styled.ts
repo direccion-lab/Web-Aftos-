@@ -25,11 +25,6 @@ const floatDown = keyframes`
   50%       { transform: translateY(5px); }
 `
 
-const scanline = keyframes`
-  0%   { transform: translateY(-100%); }
-  100% { transform: translateY(100vh); }
-`
-
 const runeGlow = keyframes`
   0%, 100% { opacity: 0.3; }
   50%       { opacity: 1; }
@@ -82,7 +77,7 @@ export const Modal = styled.div<{ $visible: boolean }>`
   }
 `
 
-export const ModalHeader = styled.div`
+export const ModalHeader = styled.div<{ $coverImage?: string }>`
   width: 100%;
   height: 200px;
   position: relative;
@@ -90,23 +85,11 @@ export const ModalHeader = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.colors.accent}33;
 
   background:
-    linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.85)),
-    repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 40px,
-      ${({ theme }) => theme.colors.accent}08 40px,
-      ${({ theme }) => theme.colors.accent}08 41px
-    ),
-    repeating-linear-gradient(
-      90deg,
-      transparent,
-      transparent 40px,
-      ${({ theme }) => theme.colors.accent}08 40px,
-      ${({ theme }) => theme.colors.accent}08 41px
-    ),
-    radial-gradient(ellipse at 30% 50%, ${({ theme }) => theme.colors.accent}22, transparent 60%),
-    ${({ theme }) => theme.colors.surface};
+    linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.85) 100%),
+    ${({ $coverImage }) => ($coverImage ? `url(${$coverImage})` : 'none')};
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 
   &::before {
     content: '';
@@ -119,22 +102,6 @@ export const ModalHeader = styled.div`
     background-size: 100% 4px;
     pointer-events: none;
     z-index: 1;
-  }
-
-  &::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      ${({ theme }) => theme.colors.accent}88,
-      transparent
-    );
-    animation: ${scanline} 3s linear infinite;
-    z-index: 2;
   }
 
   ${media.sm} {

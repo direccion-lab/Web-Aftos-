@@ -50,7 +50,7 @@ export const GamePage = () => {
         </S.GamesGrid>
       </S.Container>
 
-      <GameModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
+      <GameModal isOpen={modalOpen} onClose={() => setModalOpen(false)} coverImage={gameCover} />
     </S.PageWrapper>
   )
 }

@@ -8,11 +8,12 @@ import * as S from './GameModal.styled'
 interface GameModalProps {
   isOpen: boolean
   onClose: () => void
+  coverImage?: string
 }
 
 const FEATURE_ICONS = ['⚔️', '🗺️', '🧙', '🏰']
 
-export const GameModal = ({ isOpen, onClose }: GameModalProps) => {
+export const GameModal = ({ isOpen, onClose, coverImage }: GameModalProps) => {
   const { t } = useTranslation()
 
   const handleDownload = () => {
@@ -53,7 +54,7 @@ export const GameModal = ({ isOpen, onClose }: GameModalProps) => {
           <X size={16} />
         </S.CloseButton>
 
-        <S.ModalHeader>
+        <S.ModalHeader $coverImage={coverImage}>
           <S.HeaderRunes>
             <span>᛫</span>
             <span>⚔</span>

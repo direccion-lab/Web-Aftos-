@@ -11,29 +11,25 @@ type NavItem =
   | { type: 'route'; labelKey: string; path: string }
 
 const NAV_ITEMS: NavItem[] = [
-  {
-    type: 'section',
-    labelKey: TRANSLATION.NAV.GAMES,
-    sectionId: SECTION_IDS.GAMES,
-  },
-  {
-    type: 'section',
-    labelKey: TRANSLATION.NAV.ABOUT,
-    sectionId: SECTION_IDS.ABOUT,
-  },
-  {
-    type: 'section',
-    labelKey: TRANSLATION.NAV.CONTACT,
-    sectionId: SECTION_IDS.CONTACT,
-  },
+  { type: 'section', labelKey: TRANSLATION.NAV.GAMES, sectionId: SECTION_IDS.GAMES },
+  { type: 'section', labelKey: TRANSLATION.NAV.ABOUT, sectionId: SECTION_IDS.ABOUT },
+  { type: 'section', labelKey: TRANSLATION.NAV.CONTACT, sectionId: SECTION_IDS.CONTACT },
   { type: 'route', labelKey: TRANSLATION.NAV.STORE, path: ROUTES.STORE },
 ]
 
+const RUNES = [
+  { id: 'rune-sword', char: '⚔', delay: 0, size: 0.9 },
+  { id: 'rune-dot-1', char: '᛭', delay: 0.8, size: 0.6 },
+  { id: 'rune-fire', char: '🜲', delay: 1.6, size: 0.7 },
+  { id: 'rune-dot-2', char: '᛭', delay: 2.4, size: 0.6 },
+  { id: 'rune-air', char: '🜁', delay: 3.2, size: 0.7 },
+  { id: 'rune-dot-3', char: '᛭', delay: 0.4, size: 0.6 },
+  { id: 'rune-fleur', char: '⚜', delay: 1.2, size: 0.8 },
+]
+
 const scrollToSection = (sectionId: string) => {
-  const element = document.getElementById(sectionId)
-  if (element) {
-    element.scrollIntoView({ behavior: 'smooth', block: 'start' })
-  }
+  const el = document.getElementById(sectionId)
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
 }
 
 interface NavbarProps {
@@ -58,9 +54,8 @@ export const Navbar = ({ theme, onToggleTheme }: NavbarProps) => {
 
   const handleNavClick = (item: NavItem) => {
     if (item.type === 'section') {
-      if (isHome) {
-        scrollToSection(item.sectionId)
-      } else {
+      if (isHome) scrollToSection(item.sectionId)
+      else {
         navigate(ROUTES.HOME)
         setTimeout(() => scrollToSection(item.sectionId), 100)
       }
@@ -70,33 +65,48 @@ export const Navbar = ({ theme, onToggleTheme }: NavbarProps) => {
   }
 
   const getKey = (item: NavItem) => (item.type === 'section' ? item.sectionId : item.path)
-
-  const isActive = (item: NavItem) => {
-    if (item.type === 'route') return pathname === item.path
-    return false
-  }
+  const isActive = (item: NavItem) => item.type === 'route' && pathname === item.path
 
   return (
     <section style={{ position: 'absolute' }}>
       <S.NavWrapper>
         <S.Nav>
-          <S.GlowLine />
+          <S.DataStream />
+          <S.TopEnergyLine />
+          <S.BottomGlow />
+
+          <S.Corner $pos="tl" />
+          <S.Corner $pos="tr" />
+          <S.Corner $pos="bl" />
+          <S.Corner $pos="br" />
+
+          <S.RuneField>
+            {RUNES.map((r) => (
+              <S.Rune key={r.id} $delay={r.delay} $size={r.size}>
+                {r.char}
+              </S.Rune>
+            ))}
+          </S.RuneField>
 
           <S.NavInner>
             <S.Logo onClick={() => navigate(ROUTES.HOME)}>
-              <div>
-                <img src={ISOTIPO} alt="" width={35} height={35} />
-              </div>
-              <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <S.LogoMain>AFTOS</S.LogoMain>
+              <S.LogoImg>
+                <img src={ISOTIPO} alt="Aftos Studio" />
+              </S.LogoImg>
+              <S.LogoText>
+                <S.LogoMain data-text="AFTOS">AFTOS</S.LogoMain>
                 <S.LogoSub>STUDIO</S.LogoSub>
-              </div>
+              </S.LogoText>
             </S.Logo>
 
             <S.NavLinks>
               {NAV_ITEMS.map((item) => (
                 <S.NavLinkWrapper key={getKey(item)}>
                   <S.NavLink $active={isActive(item)} onClick={() => handleNavClick(item)}>
+                    <S.LinkBg />
+                    <S.Particle />
+                    <S.Particle />
+                    <S.Particle />
                     <S.LinkText>{t(item.labelKey)}</S.LinkText>
                     <S.HoverGlow />
                     {isActive(item) && <S.ActiveBar />}
@@ -121,7 +131,7 @@ export const Navbar = ({ theme, onToggleTheme }: NavbarProps) => {
 
               <S.DonateButton onClick={() => navigate(ROUTES.DONATIONS)}>
                 <S.DonateIcon>♥</S.DonateIcon>
-                {t(TRANSLATION.NAV.DONATE)}
+                <span>{t(TRANSLATION.NAV.DONATE)}</span>
               </S.DonateButton>
             </S.RightSection>
 
@@ -177,7 +187,7 @@ export const Navbar = ({ theme, onToggleTheme }: NavbarProps) => {
               }}
             >
               <S.DonateIcon>♥</S.DonateIcon>
-              {t(TRANSLATION.NAV.DONATE)}
+              <span>{t(TRANSLATION.NAV.DONATE)}</span>
             </S.MobileDonate>
           </S.MobileMenu>
         </S.Nav>
