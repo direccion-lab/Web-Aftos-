@@ -31,7 +31,7 @@ export const HomePage = () => {
   const slides: HeroSlide[] = [
     {
       id: 'afesis',
-      backgroundImage: '/images/hero/studio-bg.jpg',
+      backgroundImage: '',
       backgroundVideo: trailerVideo,
       logoImage: '/images/hero/game-1-logo.png',
       titleKey: TRANSLATION.HOME.SLIDE_1_TITLE,
@@ -46,7 +46,7 @@ export const HomePage = () => {
     },
     {
       id: 'studio',
-      backgroundImage: '/images/hero/studio-bg.jpg',
+      backgroundImage: '',
       backgroundVideo: trailer2,
       titleKey: TRANSLATION.HOME.SLIDE_4_TITLE,
       descriptionKey: TRANSLATION.HOME.SLIDE_4_DESC,
@@ -54,14 +54,14 @@ export const HomePage = () => {
     {
       id: 'game-2',
       backgroundImage: kickstarter,
-      logoImage: '/images/hero/game-2-logo.png',
+      logoImage: '',
       titleKey: TRANSLATION.HOME.SLIDE_2_TITLE,
       descriptionKey: TRANSLATION.HOME.SLIDE_2_DESC,
     },
     {
       id: 'game-3',
       backgroundImage: DiscordBg,
-      logoImage: '/images/hero/game-3-logo.png',
+      logoImage: '',
       titleKey: TRANSLATION.HOME.SLIDE_3_TITLE,
       descriptionKey: TRANSLATION.HOME.SLIDE_3_DESC,
       actionLinks: [
