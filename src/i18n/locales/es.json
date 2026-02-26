@@ -60,7 +60,8 @@
     "languagesList": "Español castellano, Inglés, Ruso",
     "platformsTitle": "Plataformas",
     "platformsDesc": "Steam y Móvil (próximamente)",
-    "close": "Cerrar"
+    "close": "Cerrar",
+    "download_btn": "Descargar"
   },
   "about": {
     "eyebrow": "Nosotros",

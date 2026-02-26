@@ -94,6 +94,7 @@ export const TRANSLATION = {
     PLATFORMS_TITLE: 'platformsTitle',
     PLATFORMS_DESC: 'platformsDesc',
     CLOSE: 'close',
+    DOWNLOAD_BUTTON: 'download_btn',
   }),
   SPONSORS: generateTranslationKeys(BASE_KEYS.SPONSORS, {
     EYEBROW: 'eyebrow',

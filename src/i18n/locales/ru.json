@@ -60,7 +60,8 @@
     "languagesList": "Испанский, Английский, Русский",
     "platformsTitle": "Платформы",
     "platformsDesc": "Steam и мобильные устройства (скоро)",
-    "close": "Закрыть"
+    "close": "Закрыть",
+    "download_btn": "Скачать"
   },
   "about": {
     "eyebrow": "О нас",
