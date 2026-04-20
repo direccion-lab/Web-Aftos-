@@ -10,14 +10,13 @@ export const DonationPage = () => {
   const { t } = useTranslation()
   const [activeIndex, setActiveIndex] = useState(1)
 
-  const [donateUrl, setDonateUrl] = useState<string | null>(null)
-
   const handleDonate = (price: string) => {
     const params = new URLSearchParams({
       'form_fields[cantidad1]': price,
       'form_fields[proyecto]': 'aftos_studio',
     })
-    setDonateUrl(`${DONATION_BASE_URL}?${params.toString()}`)
+    const url = `${DONATION_BASE_URL}?${params.toString()}`
+    window.open(url, '_blank', 'noopener,noreferrer')
   }
 
   const tiers = [
@@ -250,20 +249,6 @@ export const DonationPage = () => {
               </S.TaxRow>
             </S.TaxColumn>
           </S.TaxColumns>
-          {donateUrl && (
-            <S.DonateModalOverlay onClick={() => setDonateUrl(null)}>
-              <S.DonateModalBox onClick={(e) => e.stopPropagation()}>
-                <S.DonateModalClose onClick={() => setDonateUrl(null)}>✕</S.DonateModalClose>
-                <iframe
-                  src={donateUrl}
-                  width="100%"
-                  height="100%"
-                  frameBorder="0"
-                  title="Formulario de donación"
-                />
-              </S.DonateModalBox>
-            </S.DonateModalOverlay>
-          )}
         </S.TaxCard>
       </S.TaxSection>
     </S.PageWrapper>
